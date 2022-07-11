@@ -1,0 +1,11 @@
+{
+  "files.trimTrailingWhitespace": true,
+  "editor.formatOnSave": true,
+  "[ruby]": {
+    "editor.defaultFormatter": "misogi.ruby-rubocop"
+  },
+  "ruby.rubocop.executePath": "/usr/local/bin/rubocop-daemon-wrapper/",
+  "ruby.rubocop.autocorrectArg": "--auto-correct-all",
+  "ruby.rubocop.onSave": true,
+  "ruby.rubocop.postFormatVSCodeCommand": "prettier.forceFormatDocument"
+}

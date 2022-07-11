@@ -1,0 +1,6 @@
+#!/bin/bash
+# ./node_modules/.bin/marp --version
+# npx @marp-team/marp-cli@latest presentation.md --html
+# npx @marp-team/marp-cli@latest presentation.md --pptx
+
+marp presentation.md --html
