@@ -1,5 +1,5 @@
-web: bin/rails server -p 3000
-worker: bundle exec sidekiq -t 25
+web: rdebug-ide --host 0.0.0.0 --port 1234 --dispatcher-port 1234 --skip_wait_for_start -- bin/rails server -p 3000
+worker: rdebug-ide --host 0.0.0.0 --port 1235 --dispatcher-port 1235 --skip_wait_for_start --  bundle exec sidekiq -t 25
 js: yarn build --watch
 light-js: yarn light:build --watch
 light-css: yarn light:build:css --watch

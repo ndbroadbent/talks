@@ -441,9 +441,55 @@ end
 
 ---
 
-# **GitHub Copilot + RuboCop**
+![bg contain](assets/ruby-breakpoint-vscode.png)
 
-Live coding demo... Let's write some Ruby code and see what happens.
+---
+
+- Gemfile
+
+```ruby
+gem 'debase', '~> 0.2.5.beta2'
+gem 'ruby-debug-ide'
+```
+
+---
+
+- `.vscode/launch.json`
+
+```
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Rails Server - Listen for rdebug-ide",
+      "type": "Ruby",
+      "request": "attach",
+      "remoteHost": "0.0.0.0",
+      "remotePort": "1234",
+      "remoteWorkspaceRoot": "${workspaceRoot}"
+    }
+  ]
+}
+```
+
+---
+
+Starting the Rails server using `rdebug-ide`:
+
+```bash
+rdebug-ide --host 0.0.0.0 \
+  --port 1234 --dispatcher-port 1234 --skip_wait_for_start -- \
+  bin/rails s
+```
+
+---
+
+# **Live coding demo with GitHub Copilot**
+
+Let's try to write some Ruby code and see what happens...
 
 ---
 
