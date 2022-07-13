@@ -408,15 +408,42 @@ end
 
 # **VS Code as a Ruby IDE**
 
-- Setting debug breakpoints
-- See where methods are defined
-- View method documentation
+- Solargraph
+  - See where methods are defined
+  - View method documentation
+- Endwise - `end` helper extension
+- Ruby Test Explorer
+- Using the VS Code debugger - `ruby-debug-ide`, `debase`
+
+---
+
+# **Solargraph**
+
+![w:1200px](assets/solargraph.png)
+
+---
+
+# **Solargraph**
+
+![w:1200px](assets/solargraph-2.png)
+
+---
+
+# **Endwise**
+
+![w:1200px](assets/endwise.gif)
+
+---
+
+# **Ruby Test Explorer**
+
+![w:1200px](assets/ruby-test-explorer.png)
 
 ---
 
 # **GitHub Copilot + RuboCop**
 
-Live coding demo! Let's write some Ruby code and see what happens.
+Live coding demo... Let's write some Ruby code and see what happens.
 
 ---
 

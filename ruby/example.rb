@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require 'digest/sha2'
+require_relative 'other_file'
 
+# top-level class comment
 class ExampleClass
   EXAMPLE_HASH = {
     asdfasdf: 123_123,
@@ -18,5 +19,9 @@ class ExampleClass
 
   def do_something
     puts "Hello #{@arg}"
+  end
+
+  def add(num_a, num_b)
+    num_a + num_b
   end
 end
