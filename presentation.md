@@ -68,10 +68,10 @@ VS Code is super fast (even with lots of extensions.)
 
 # **Topics**
 
-- ### How I set up "format on save" with RuboCop (and how I made it fast)
-- ### How I use VS Code as a Ruby IDE
+- ### How to set up "format on save" with RuboCop
+  - #### (and how to make it fast)
+- ### How you can use VS Code as a Ruby IDE
 - ### GitHub Copilot + RuboCop 🤯🤯🤯
-- ### Other extensions and gems I like to use
 
 ---
 
@@ -234,7 +234,7 @@ Better to apply these corrections while the code is right in front of you and it
 
 ---
 
-## **Prettier for Ruby**
+## **Prettier for Ruby?**
 
 https://github.com/prettier/plugin-ruby
 
@@ -512,18 +512,25 @@ Copilot ideas:
 
 ---
 
-# Other Extensions
+# Some Other Cool Extensions
 
 - GitLens
 - ToggleQuotes
-- GitHub Copilot
 - Gemfile.lock highlight
 - FileUtils
 - Color Picker
-- pdf
+- pdf (syntax highlighting)
 
 ---
 
 # Thanks!
 
-# **Questions?**
+# **Any questions?**
+
+<br/>
+<br/>
+<br/>
+
+You can find all the code for this presentation on GitHub:
+
+https://github.com/ndbroadbent/auckland-ruby-presentation-202207
