@@ -214,6 +214,10 @@ puts 'Generated ReaLearn configuration JSON to output.json'
 
 ---
 
+![bg contain](assets/keyboard.jpeg)
+
+---
+
 # Home Automation
 
 - I also use Ruby to write scripts for my home automation projects.
