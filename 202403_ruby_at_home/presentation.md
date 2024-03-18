@@ -11,6 +11,8 @@ backgroundImage: none
 
 # Ruby at Home
 
+A journey through some random scripts and GitHub repos
+
 ---
 
 # Hello!
@@ -18,21 +20,59 @@ backgroundImage: none
 ### My name is Nathan Broadbent
 
 - Ruby on Rails developer since 2010
-- Building DocSpring.com
+- I've been building DocSpring.com since 2017
   - API for filling, signing, and generating PDFs
   - Ruby on Rails app
 
 ---
-
-# Hello!
-
-### My name is Nathan Broadbent
 
 - My hobbies include:
   - Home automation
   - Electronics
   - 3D Printing
   - Music
+
+---
+
+I use Ruby every day at work. What about in my free time?
+
+---
+
+I use Ruby every day at work. What about in my free time?
+
+Lets have a look at:
+
+- Scripts in my Google Drive folder
+
+---
+
+I use Ruby every day at work. What about in my free time?
+
+Lets have a look at:
+
+- Scripts in my Google Drive folder
+- Scripts on my home automation server
+
+---
+
+I use Ruby every day at work. What about in my free time?
+
+Lets have a look at:
+
+- Scripts in my Google Drive folder
+- Scripts on my home automation server
+- Repos on my GitHub profile
+
+---
+
+I use Ruby every day at work. What about in my free time?
+
+Lets have a look at:
+
+- Scripts in my Google Drive folder
+- Scripts on my home automation server
+- Repos on my GitHub profile
+- Blog posts (https://madebynathan.com)
 
 ---
 
@@ -96,7 +136,17 @@ I played with this for a little while and it's very fun.
 
 # Some more music stuff...
 
-Scripts to automate REAPER (my favorite DAW, or "digital audio workstation".)
+REAPER is my favorite DAW, or "digital audio workstation".
+
+https://www.reaper.fm
+
+---
+
+![bg contain](assets/reaper_screenshot.jpeg)
+
+---
+
+I've written some scripts to automate a REAPER plugin called ReaLearn. It's super powerful and allows you to automate anything using MIDI commands from a keyboard, etc.
 
 https://github.com/ndbroadbent/reaper-scripts
 
@@ -112,7 +162,7 @@ https://github.com/ndbroadbent/reaper-scripts
 
 ---
 
-Used Ruby to generate JSON config:
+The JSON format was complicated, so I used Ruby to generate it. This included things like generating IDs for each mapping, iterating over elements in an array, etc.
 
 ```ruby
 # ...
@@ -164,14 +214,18 @@ puts 'Generated ReaLearn configuration JSON to output.json'
 
 ---
 
-- I've also used Ruby to write a few scripts for home automation projects. - Home Assistant is written in Python, so I will mostly use Python, shell scripts, and YAML
+# Home Automation
+
+- I also use Ruby to write scripts for my home automation projects.
+- Home Assistant is written in Python, so I mostly use Python when I'm working on plugins.
+- I also write a lot of YAML and shell scripts
 - But I also write a few scripts using Ruby when it feels like the right tool for the job
 
 <br/>
 <br/>
 <br/>
 
-#### Here are some of my Home Assistant dashboards...
+#### Here are a few of my Home Assistant dashboards...
 
 ---
 
@@ -209,8 +263,8 @@ P.S. ESP32s are only about $2.27 NZD on AliExpress. Total cost: $36.32 NZD + shi
 
 ---
 
-- I wrote a Ruby script to keep all the settings in sync across 16 ESP32s.
-- This script makes a web request to each device and keeps all the settings in sync.
+- I wrote a Ruby script to keep all the settings in sync across all 16 ESP32s.
+- This script makes a web request to the API endpoint on each device
 
 ```ruby
 @secrets = YAML.load_file(File.join(__dir__, 'configure_espresense_secrets.yml'))
@@ -432,7 +486,8 @@ AIRTAGS_DATA_FILE = "/Users/#{ENV.fetch('MAC_USERNAME')}/Library/Caches/com.appl
 # Novation Launchpad Pro Dashboard
 
 - I have a Novation Launchpad Pro MIDI controller
-- I use to create drum beats and for live looping sessions, but most of the time it just sits on my desk doing nothing
+- I use this to create drum patterns and for "live looping" sessions.
+- Most of the time it just sits on my desk doing nothing
 - I decided to use the lights to display some information when I'm not using it for music
 
 ---
@@ -564,7 +619,7 @@ end
 
 # `check_for_new_reddit_submissions.rb`
 
-This script checks a Reddit username for new posts, then announces it out loud using Google's text-to-speech API. I can't remember what I needed this for. Something to do with a competition, or one of Reddit's april fools things.
+I wrote this script a long time ago. It checks a Reddit username for new posts, then announces it out loud using Google's text-to-speech API. I can't remember what I needed this for. It might have been something to do with a competition, or one of Reddit's april fools things where they build a random game or activity.
 
 ---
 
@@ -608,6 +663,155 @@ end
 
 ---
 
+I saw a post on Hacker News:
+
+> _Apple's whitelist of the 250k auto-completable domains in iOS_
+
+https://news.ycombinator.com/item?id=30903246
+
+Someone commented the following:
+
+> I noticed that tiktok.com is missing, so this list might have been compiled sometime before 2019. I wonder if you could write a script that pinpoints the exact month or even day.
+
+So I took them up on that challenge:
+
+https://github.com/ndbroadbent/autofill_tld_whitelist_url_age_calculator
+
+---
+
+> I wrote a script: https://github.com/ndbroadbent/autofill_tld_whitelist_url_ag...
+> This attempts to scan WHOIS records for random domains in the list and try to find the most recent "registered at" date for a domain.
+
+> It's very unreliable. The whois-parser Ruby gem thought that giants.it was created on 2020-11-03 09:00:01, but I checked the record and it looks like it was actually created on 2009-09-28 11:00:43.
+
+> ...
+
+**In conclusion, I don't think this idea works at all.**
+
+---
+
+But it was fun to write some Ruby anyway...
+
+```ruby
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'httparty'
+require 'whois'
+require 'whois-parser'
+require 'pry-byebug'
+
+TLD_URL = 'https://cdn.smoot.apple.com/static/autofill_tld_whitelist_url'
+TLD_PATH = File.join(__dir__, 'tlds.json')
+SCANNED_PATH = File.join(__dir__, 'scanned.json')
+
+# Broken WHOIS records / parsing
+BLOCK_LIST = [ 'giants.it' ]
+
+unless File.exist?(TLD_PATH)
+  puts "Fetching tld list from #{TLD_URL}..."
+  response = HTTParty.get(TLD_URL)
+  File.write(TLD_PATH, response.body)
+end
+
+latest_created_on = nil
+latest_tld = nil
+scanned = []
+if File.exist?(SCANNED_PATH)
+  scan_contents = JSON.parse(File.read(SCANNED_PATH))
+  scanned = scan_contents['scanned']
+  latest_created_on = Time.parse(scan_contents['latest_created_on']['date'])
+  latest_tld = scan_contents['latest_created_on']['tld']
+end
+
+tlds = (JSON.parse(File.read(TLD_PATH))['tlds'] - scanned).uniq
+# ...
+```
+
+---
+
+# totp_finder
+
+https://github.com/ndbroadbent/totp_finder
+
+Find TOTP codes that all have the same number
+This code can help you figure out when your two-factor authentication app will show some cool numbers, like "000000", "111111", "999999", or even "123456. The possibilities are endless \*
+
+Run bundle install, then ./totp_finder.rb. Then you can import totp_ical.ics into your Google Calendar! (Maybe create a separate calendar for these events, so you can delete them easily.)
+
+\* _There are 999999 possibilities_
+
+---
+
+This code takes a 2FA secret and searches for interesting TOTP codes in the future. It then creates an iCal file with events for each interesting code, which you can import into Google Calendar.
+
+Examples:
+
+- 111111 from Facebook - Happening on 2023-03-14 12:15:00
+- 123456 from GitHub - Happening on 2023-03-16 08:07:00
+
+---
+
+```
+puts "Searching for interesting TOTP codes:"
+
+# Round down to nearest 30 seconds
+start_time = Time.at((DateTime.now.to_f / 30).floor * 30).to_datetime
+
+offset_seconds = 0
+loop do
+  found = false
+  time = start_time + offset_seconds.seconds
+
+  totps.each do |service, totp|
+    code = totp.at(time)
+
+    next unless (code.split('').uniq.size == 1 || code == '123456')
+
+    puts "#{code} - #{distance_of_time_in_words(Time.now, time)} from now (#{time.to_s(:long)}) [#{service}]"
+
+    event = cal.event
+    event.dtstart = time
+    event.dtend   = time + 30.seconds
+    event.summary = "TOTP #{code}: #{service}"
+
+    found = true
+    break
+  end
+  # break if found
+  # break if offset_seconds > (60 * 60 * 24 * 365 * 2)
+  break if offset_seconds > (60 * 60 * 24 * 30)
+
+  offset_seconds += 30
+end
+
+cal_string = cal.to_ical
+puts "Writing iCal events to totp_ical.ics"
+File.open('totp_ical.ics', 'w') {|f| f.puts cal_string }
+```
+
+---
+
+# AsteroidPeople
+
+https://github.com/ndbroadbent/asteroid_people
+
+I found a Wikipedia page called "List of minor planets named after people", which is basically a list of people who are famous enough to have an asteroid named after them.
+
+https://www.wikiwand.com/en/List_of_minor_planets_named_after_people
+
+I enjoy trivia and pub quizzes, so I thought it would be interesting to improve my knowledge of famous scientists. So I wrote a Ruby script to turn this Wikipedia page into a Twitter bot and an Anki deck for flash cards.
+
+---
+
+![bg contain](assets/asteroid_people_anki.jpeg)
+
+---
+
+![bg contain](assets/asteroid_people_anki2.jpeg)
+
+---
+
 # Advent of Code 2023
 
 I used Ruby to solve a few puzzles for Advent of Code 2023.
@@ -622,7 +826,7 @@ I used Ruby to solve a few puzzles for Advent of Code 2023.
 
 ---
 
-# One of my earliest projects...
+# One of my earliest projects... (11 years ago!)
 
 https://madebynathan.com/2013/07/10/raspberry-pi-powered-microwave/
 
@@ -634,11 +838,15 @@ I put a Raspberry Pi in a microwave and wired up a barcode scanner and voice rec
 
 ---
 
+![bg contain](assets/picrowave_internals.jpeg)
+
+---
+
 ![bg contain](assets/mwcdb-resized-post.jpeg)
 
 ---
 
-# Other things you can do with Ruby:
+# A few other things you can do with Ruby:
 
 ---
 
@@ -658,9 +866,9 @@ https://github.com/MC-Squared/SolidRuby
 
 ---
 
-# Conclusion
+# Summary
 
-Ruby is awesome
+- Ruby is awesome!
 
 ---
 
